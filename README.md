@@ -3,25 +3,50 @@
 
 API
 
-status()
+GET /roulette/status
 	OK
 
-
-contacts()
+GET /roulette/contacts
 	контакты
 
-
-chatrooms():
+GET /roulette/chatrooms
 	список комнат
 
 
-chatroom(number):
-	комната по (id=number)
+GET /roulette/chatroom(integer)
+	комната по (id=integer)
 
 
-addchatroom():
-	добавить новую комнату
+GET /roulette/addchatroom
+	форма добавления новой комнаты
+	
+POST /roulette/addchatroom
+	{'name'=string,
+	'capacity'=integer}
+	добавить новую комнату с заданным названием и вместимостью
 
+GET /roulette/removechatroom(integer)
+	удалить комнату по (id=integer)
+	
+GET /roulette/persons
+	список участников
+	
+GET /roulette/person(integer)
+	участник по (id=integer)
+	
+GET /roulette/addperson
+	форма добавления нового участника
+	
+POST /roulette/addperson
+	{'name'=string,
+	'ticket'=string}
+	добавить нового участника с заданным именем и номером билета
 
-removechatroom(number)
-	удалить комнату по (id=number)
+GET /roulette/removeperson(integer)
+	удалить участника по (id=integer)
+	
+POST /roulette/movepersontochatroom
+	{'person_id'=integer,
+	'chatroom_id'=integer}
+        добавить участника с id=person_id в комнату с id=chatroom_id, если хватит места
+

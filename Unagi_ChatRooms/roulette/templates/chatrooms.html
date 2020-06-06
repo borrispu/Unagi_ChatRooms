@@ -10,6 +10,7 @@
 
     <table>
         <tr>
+            <td>Номер</td>
             <td>Название</td>
             <td>Вместимость</td>
             <td>Участников</td>
@@ -17,6 +18,7 @@
 
         {% for chatroom in chatrooms %}
         <tr>
+            <td>{{ chatroom.id }}</td>
             <td><a href="/roulette/chatroom/{{ chatroom.id }}">{{ chatroom.name }}</a></td>
             <td>{{ chatroom.capacity }}</td>
             <td>{{ chatroom.occupied }}</td>

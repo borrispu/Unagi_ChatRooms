@@ -135,6 +135,10 @@ def movepersontochatroom(request):
         })
     guy = guys[0]
     thisguy = model_to_dict(guy)
+    if guy.chatroom != None:
+        thisguy.update({
+            'chatroom_name': guy.chatroom.name
+        })
 
     # Проверяем комнату
 

@@ -12,12 +12,14 @@
         <tr>
             <td>Название</td>
             <td>Вместимость</td>
+            <td>Участников</td>
         </tr>
 
         {% for chatroom in chatrooms %}
         <tr>
             <td><a href="/roulette/chatroom/{{ chatroom.id }}">{{ chatroom.name }}</a></td>
             <td>{{ chatroom.capacity }}</td>
+            <td>{{ chatroom.occupied }}</td>
             <td><a href="/roulette/removechatroom/{{ chatroom.id }}">Удалить</a></td>
         </tr>
         {% endfor %}

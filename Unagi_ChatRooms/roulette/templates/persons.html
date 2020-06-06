@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}Список Участников{% endblock %}
+
+{% block content %}
+    <h2>Список участников</h2>
+
+    <a href="/roulette/addperson">Добавить участника</a>
+    <br><br>
+
+    <p style="color:red">{{ error }}</p>
+
+    <table>
+        <tr>
+            <td>Номер</td>
+            <td>Имя</td>
+            <td>Билет</td>
+            <td>Комната</td>
+        </tr>
+
+        {% for person in persons %}
+        <tr>
+            <td>{{ person.id }}</td>
+            <td><a href="/roulette/person/{{ person.id }}">{{ person.name }}</a></td>
+            <td>{{ person.ticket }}</td>
+            <td><a href="/roulette/chatroom/{{ person.chatroom }}">{{ person.chatroom.name }}</a></td>
+            <td><a href="/roulette/removeperson/{{ person.id }}">Удалить</a></td>
+        </tr>
+        {% endfor %}
+
+{% endblock %}

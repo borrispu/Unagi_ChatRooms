@@ -11,5 +11,10 @@ urlpatterns = [
     path('chatrooms', views.chatrooms),
     path('addchatroom', views.addchatroom),
     path('removechatroom/<int:number>', views.removechatroom),
-    path('chatroom/<int:number>', views.chatroom)
+    path('chatroom/<int:number>', views.chatroom),
+    path('persons', views.persons),
+    path('addperson', views.addperson),
+    path('removeperson/<int:number>', views.removeperson),
+    path('person/<int:number>', views.person),
+    path('movepersontochatroom', views.movepersontochatroom)
 ]

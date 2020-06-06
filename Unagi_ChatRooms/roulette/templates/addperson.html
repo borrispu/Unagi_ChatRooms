@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}Чат-рулетка - Создать участника{% endblock %}
+
+{% block content %}
+    <h2>Создать участника</h2>
+
+    <p style="color:red">{{ error }}</p>
+
+    <form method="post" action="/roulette/addperson">
+        {% csrf_token %}
+        <input type="text" name="name" placeholder="Имя">
+        <br><br>
+        <input type="number" name="ticket" placeholder="Билет">
+        <br><br>
+        <input type="submit" value="Создать участника">
+    </form>
+{% endblock %}

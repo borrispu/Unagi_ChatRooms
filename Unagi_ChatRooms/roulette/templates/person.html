@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}Участник - {{ name }}{% endblock %}
+
+{% block content %}
+    <h2>Участник "{{ name }}"</h2>
+    <p>Билет {{ ticket }}</p>
+    <p>Комната <a href="/roulette/chatroom/{{ chatroom }}">{{ chatroom_name }}</a></p>
+
+    <p style="color:red">{{ error }}</p>
+
+    <form method="post" action="/roulette/movepersontochatroom">
+        {% csrf_token %}
+        <input type="hidden" name="person_id" value = {{ id }}>
+        <br><br>
+        <input type="number" name="chatroom_id" placeholder="Номер комнаты">
+        <br><br>
+        <input type="submit" value="Поместить в комнату">
+    </form>
+{% endblock %}

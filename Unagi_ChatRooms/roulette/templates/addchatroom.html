@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}Чат-рулетка - Создать комнату{% endblock %}
+
+{% block content %}
+    <h2>Создать комнату</h2>
+
+    <p style="color:red">{{ error }}</p>
+
+    <form method="post" action="/roulette/addchatroom">
+        {% csrf_token %}
+        <input type="text" name="name" placeholder="Название">
+        <br><br>
+        <input type="number" name="capacity" placeholder="Вместимость">
+        <br><br>
+        <input type="submit" value="Создать комнату">
+    </form>
+{% endblock %}

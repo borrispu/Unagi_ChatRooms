@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}Список комнат{% endblock %}
+
+{% block content %}
+    <h2>Список комнат</h2>
+
+    <a href="/roulette/addchatroom">Добавить комнату</a>
+    <br><br>
+
+    <table>
+        <tr>
+            <td>Название</td>
+            <td>Вместимость</td>
+        </tr>
+
+        {% for chatroom in chatrooms %}
+        <tr>
+            <td><a href="/roulette/chatroom/{{ chatroom.id }}">{{ chatroom.name }}</a></td>
+            <td>{{ chatroom.capacity }}</td>
+            <td><a href="/roulette/removechatroom/{{ chatroom.id }}">Удалить</a></td>
+        </tr>
+        {% endfor %}
+
+{% endblock %}

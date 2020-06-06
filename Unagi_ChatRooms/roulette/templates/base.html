@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+    <a href="/roulette">Главная</a>
+    <a href="/roulette/chatrooms">Комнаты</a>
+    <a href="/roulette/contacts">Контакты</a>
+
+    {% block content %}{% endblock %}
+</body>
+</html>

@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.forms import model_to_dict
+from django.core import serializers
 
 from Unagi_ChatRooms import settings
 from roulette.models import Person, ChatRoom, Tag
@@ -11,6 +12,11 @@ def index(request):
 
 
 def status(request):
+    format = request.GET.get('format', 'html')
+    if format == 'json':
+        return JsonResponse({
+            'status': 'OK'
+        })
     return HttpResponse('<h2>OK<h2>')
 
 
@@ -19,18 +25,35 @@ def contacts(request):
 
 
 def chatrooms(request):
+    format = request.GET.get('format', 'html')
+    if format == 'json':
+        chatroomsdata = serializers.serialize('json', ChatRoom.objects.all())
+        return JsonResponse({
+            'chatrooms': chatroomsdata
+        })
     return render(request, 'chatrooms.html', {
-        'chatrooms': ChatRoom.objects.all()
-    })
+            'chatrooms': ChatRoom.objects.all()
+        })
 
 
 def chatroom(request, number):
+    format = request.GET.get('format', 'html')
     chats = ChatRoom.objects.filter(id=number)
 
     if len(chats) == 1:
-        chat = model_to_dict(chats[0])
-        return render(request, 'chatroom.html', chat)
+        chat = chats[0]
+        if format == 'json':
+            chatdata = serializers.serialize('json', [chat])
+            return JsonResponse({
+                'chatroom': chatdata
+            })
+        thischat = model_to_dict(chat)
+        return render(request, 'chatroom.html', thischat)
     else:
+        if format == 'json':
+            return JsonResponse({
+                'chatroom': []
+            })
         return redirect('/roulette/chatrooms')
 
 
@@ -65,16 +88,28 @@ def removechatroom(request, number):
 
 
 def persons(request):
+    format = request.GET.get('format', 'html')
+    if format == 'json':
+        personsdata = serializers.serialize('json', Person.objects.all())
+        return JsonResponse({
+            'persons': personsdata
+        })
     return render(request, 'persons.html', {
         'persons': Person.objects.all()
     })
 
 
 def person(request, number):
+    format = request.GET.get('format', 'html')
     guys = Person.objects.filter(id=number)
 
     if len(guys) == 1:
         guy = guys[0]
+        if format == 'json':
+            chatdata = serializers.serialize('json', [guy])
+            return JsonResponse({
+                'person': chatdata
+            })
         thisguy = model_to_dict(guy)
         if guy.chatroom != None:
             thisguy.update({
@@ -82,6 +117,10 @@ def person(request, number):
             })
         return render(request, 'person.html', thisguy)
     else:
+        if format == 'json':
+            return JsonResponse({
+                'person': []
+            })
         return redirect('/roulette/persons')
 
 

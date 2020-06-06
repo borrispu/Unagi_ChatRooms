@@ -3,17 +3,17 @@
 
 API
 
-GET /roulette/status
+GET /roulette/status[?format=json]
 	OK
 
 GET /roulette/contacts
 	контакты
 
-GET /roulette/chatrooms
+GET /roulette/chatrooms[?format=json]
 	список комнат
 
 
-GET /roulette/chatroom(integer)
+GET /roulette/chatroom/(integer)[?format=json]
 	комната по (id=integer)
 
 
@@ -28,10 +28,10 @@ POST /roulette/addchatroom
 GET /roulette/removechatroom(integer)
 	удалить комнату по (id=integer)
 	
-GET /roulette/persons
+GET /roulette/persons[?format=json]
 	список участников
 	
-GET /roulette/person(integer)
+GET /roulette/person/(integer)[?format=json]
 	участник по (id=integer)
 	
 GET /roulette/addperson
@@ -49,4 +49,3 @@ POST /roulette/movepersontochatroom
 	{'person_id'=integer,
 	'chatroom_id'=integer}
         добавить участника с id=person_id в комнату с id=chatroom_id, если хватит места
-

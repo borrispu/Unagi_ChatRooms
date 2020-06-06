@@ -168,7 +168,8 @@ def movepersontochatroom(request):
     if currentchatroom != None:
         currentchatroom.count()
     chat.count()
-    
+
+    thisguy = model_to_dict(guy)
     thisguy.update({
         'chatroom_name': guy.chatroom.name
     })

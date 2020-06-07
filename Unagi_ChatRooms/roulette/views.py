@@ -213,3 +213,59 @@ def movepersontochatroom(request):
         'chatroom_name': guy.chatroom.name
     })
     return render(request, 'person.html', thisguy)
+
+
+def addtagtoperson(request):
+    if request.method == 'GET':
+        return redirect('/roulette/persons')
+    if request.method == 'POST':
+        person_id = request.POST['person_id']
+        tag_description = request.POST['tag_description']
+
+    guys = Person.objects.filter(id=person_id)
+    if len(guys) !=1:
+        return render(request, 'persons.html', {
+            'persons': Person.objects.all(),
+            'error': 'Участник не определен'
+        })
+    guy = guys[0]
+    guy.addtag(tag_description)
+    thisguy = model_to_dict(guy)
+    thisguy.update({
+        'chatroom_name': guy.chatroom.name
+    })
+    return render(request, 'person.html', thisguy)
+
+
+def removetagfromperson(request):
+    if request.method == 'GET':
+        return redirect('/roulette/persons')
+    if request.method == 'POST':
+        person_id = request.POST['person_id']
+        tag_description = request.POST['tag_description']
+
+    guys = Person.objects.filter(id=person_id)
+    if len(guys) !=1:
+        return render(request, 'persons.html', {
+            'persons': Person.objects.all(),
+            'error': 'Участник не определен'
+        })
+    guy = guys[0]
+    guy.removetag(tag_description)
+    thisguy = model_to_dict(guy)
+    thisguy.update({
+        'chatroom_name': guy.chatroom.name
+    })
+    return render(request, 'person.html', thisguy)
+
+
+def tags(request):
+    format = request.GET.get('format', 'html')
+    if format == 'json':
+        tagsdata = serializers.serialize('json', Tag.objects.all())
+        return JsonResponse({
+            'tags': tagsdata
+        })
+    return render(request, 'tags.html', {
+        'tags': Tag.objects.all()
+    })

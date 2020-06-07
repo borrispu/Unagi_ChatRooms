@@ -11,6 +11,7 @@ class ChatRoom(models.Model):
         self.occupied = len(chatpersons)
         self.save()
 
+
 class Tag(models.Model):
     tag_description = models.CharField(max_length=100)
 
@@ -21,8 +22,36 @@ class Person(models.Model):
     chatroom = models.ForeignKey(ChatRoom, on_delete=models.PROTECT, null=True, default=None)
     tags = models.ManyToManyField(Tag)
 
-    def get_chatroom_id(self):
+    def getchatroomid(self):
         return self.chatroom
 
-    def put_tag(self, tag):
-        pass
+    def addtag(self, tag_description):
+
+        if len(tag_description) > 0:
+
+            # Создаем тег, если ранее такого не было
+
+            tags = Tag.objects.filter(tag_description=tag_description)
+            if len(tags) == 0:
+                tag = Tag()
+                tag.tag_description = tag_description
+                tag.save()
+            else:
+                tag = tags[0]
+
+            # Добавляем тег участнику
+
+            self.tags.add(tag)
+            self.save()
+
+    def removetag(self, tag_description):
+
+        if len(tag_description) > 0:
+
+            # Ищем тег участника
+
+            tags = Tag.objects.filter(tag_description=tag_description)
+            if len(tags) > 0:
+                tag = tags[0]
+                self.tags.remove(tag)
+                self.save()

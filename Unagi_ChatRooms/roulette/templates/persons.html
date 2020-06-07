@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}Список Участников{% endblock %}
+{% block title %}Список участников{% endblock %}
 
 {% block content %}
     <h2>Список участников</h2>
@@ -27,5 +27,6 @@
             <td><a href="/roulette/removeperson/{{ person.id }}">Удалить</a></td>
         </tr>
         {% endfor %}
+    </table>
 
 {% endblock %}

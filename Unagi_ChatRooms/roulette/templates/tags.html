@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}Список тегов{% endblock %}
+
+{% block content %}
+    <h2>Список тегов</h2>
+
+    <table>
+        {% for tag in tags %}
+        <tr>
+            <td>#{{ tag.tag_description }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+{% endblock %}

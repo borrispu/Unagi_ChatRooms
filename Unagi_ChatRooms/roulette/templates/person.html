@@ -17,4 +17,35 @@
         <br><br>
         <input type="submit" value="Поместить в комнату">
     </form>
+
+    <br><br>
+    <table>
+        <tr>
+            <td>Теги</td>
+        </tr>
+
+        {% for tag in tags %}
+        <tr>
+            <td>#{{ tag.tag_description }}</td>
+            <td>
+                <form method="post" action="/roulette/removetagfromperson">
+                    {% csrf_token %}
+                    <input type="hidden" name="person_id" value = {{ id }}>
+                    <input type="hidden" name="tag_description" value = {{ tag.tag_description }}>
+                    <input type="submit" value="Удалить">
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <form method="post" action="/roulette/addtagtoperson">
+        {% csrf_token %}
+        <input type="hidden" name="person_id" value = {{ id }}>
+        <br><br>
+        #<input type="text" maxlength="30" name="tag_description" placeholder="Тег">
+        <br><br>
+        <input type="submit" value="Добавить тег">
+    </form>
+
 {% endblock %}

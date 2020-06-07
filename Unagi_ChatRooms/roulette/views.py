@@ -269,3 +269,36 @@ def tags(request):
     return render(request, 'tags.html', {
         'tags': Tag.objects.all()
     })
+
+
+def searchtags(request):
+    if request.method == 'GET':
+        return redirect('/roulette/tags')
+    if request.method == 'POST':
+        optionaltags = []
+        thisiscsrftoken = True
+        for optionaltag in request.POST:
+            if thisiscsrftoken:
+                thisiscsrftoken = False
+            else:
+                optionaltags.append(request.POST[optionaltag])
+
+        persons = {}
+        for optionaltag in optionaltags:
+            tag = Tag.objects.get(tag_description=optionaltag)
+            guys = Person.objects.filter(tags=tag)
+            for guy in guys:
+                guy_number = persons.get(guy)
+                if guy_number == None:
+                    persons.update({
+                        guy: 1
+                    })
+                else:
+                    persons.update({
+                        guy: guy_number + 1
+                    })
+
+        return render(request, 'tags.html', {
+            'tags': Tag.objects.all(),
+            'persons': persons
+        })

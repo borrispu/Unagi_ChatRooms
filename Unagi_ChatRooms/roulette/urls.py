@@ -19,5 +19,6 @@ urlpatterns = [
     path('movepersontochatroom', views.movepersontochatroom),
     path('addtagtoperson', views.addtagtoperson),
     path('removetagfromperson', views.removetagfromperson),
-    path('tags', views.tags)
+    path('tags', views.tags),
+    path('searchtags', views.searchtags)
 ]

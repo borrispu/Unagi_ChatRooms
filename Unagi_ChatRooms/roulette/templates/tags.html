@@ -5,10 +5,22 @@
 {% block content %}
     <h2>Список тегов</h2>
 
-    <table>
+    <form method="post" action="/roulette/searchtags">
+        {% csrf_token %}
         {% for tag in tags %}
+        <input type="checkbox" name="optionaltags[{{ tag.id }}]" value={{ tag.tag_description }}>#{{ tag.tag_description }}<br>
+        {% endfor %}
+        <p><input type="submit" value="Поиск"></p>
+    </form>
+
+    <table>
         <tr>
-            <td>#{{ tag.tag_description }}</td>
+            <td>Участник</td>
+        </tr>
+
+        {% for person in persons %}
+        <tr>
+            <td><a href="/roulette/person/{{ person.id }}">{{ person.name }}</a></td>
         </tr>
         {% endfor %}
     </table>

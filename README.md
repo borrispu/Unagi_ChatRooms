@@ -49,3 +49,20 @@ POST /roulette/movepersontochatroom
 	{'person_id'=integer,
 	'chatroom_id'=integer}
         добавить участника с id=person_id в комнату с id=chatroom_id, если хватит места
+	
+POST /roulette/addtagtoperson
+	{'person_id'=integer,
+	'tag_description'=string}
+	добавить участника с id=person_id тег tag_description
+	
+POST /roulette/removetagfromperson
+	{'person_id'=integer,
+	'tag_description'=string}
+	удалить у участника с id=person_id тег tag_description
+	
+GET /roulette/tags[?format=json]
+	список тегов
+	
+POST /roulette/searchtags
+	{optionaltags[]=string)
+	поиск участников по списку тегов
